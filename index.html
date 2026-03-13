@@ -3,52 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Subhashree Senapati - Portfolio</title>
+  <title>Subhashree Senapati | Software Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <header>
-    <h1>Subhashree Senapati</h1>
-    <p>Software Engineer | Web Developer | Python Enthusiast</p>
-  </header>
-  <nav>
-    <a href="#about">About Me</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
+  <nav class="navbar">
+    <div class="nav-logo">SS</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </nav>
-  
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I'm a passionate software engineer with hands-on experience in web and AI development. I enjoy building real-world projects using Python, Java, HTML, and CSS.
-    </p>
+  <section class="hero" id="about">
+    <div class="hero-content">
+      <p class="hero-greeting">Hi, I am</p>
+      <h1 class="hero-name">Subhashree Senapati</h1>
+      <div class="hero-roles"><span id="role-text">Backend Developer</span></div>
+      <p class="hero-bio">Fresh CS graduate passionate about building scalable backend systems and REST APIs. Seeking software engineering roles.</p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+      </div>
+      <div class="hero-links">
+        <a href="https://github.com/subhashree212" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/subhashree-18cc/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
   </section>
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li>Programming Languages: Python, Java, C++</li>
-      <li>Web Development: HTML, CSS, JavaScript</li>
-      <li>Tools & Frameworks: Git, VS Code, Flask</li>
-    </ul>
+  <section class="section" id="skills">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-icon">âš™ï¸</div><h3>Backend</h3><p>Node.js, Express.js, REST APIs, JWT, bcrypt, Flask</p></div>
+      <div class="skill-card"><div class="skill-icon">ðŸ—„ï¸</div><h3>Database</h3><p>MySQL, Schema Design, Normalization, Indexing</p></div>
+      <div class="skill-card"><div class="skill-icon">ðŸŒ</div><h3>Frontend</h3><p>HTML, CSS, JavaScript, Responsive Design</p></div>
+      <div class="skill-card"><div class="skill-icon">ðŸ¤–</div><h3>AI / ML</h3><p>Python, scikit-learn, Flask, TF-IDF</p></div>
+      <div class="skill-card"><div class="skill-icon">ðŸ› ï¸</div><h3>Tools</h3><p>Git, GitHub, Postman, VS Code, Linux</p></div>
+      <div class="skill-card"><div class="skill-icon">ðŸ"š</div><h3>CS Concepts</h3><p>DSA, OOP, OS, Computer Networks, System Design</p></div>
+    </div>
   </section>
-  <section id="projects">
-    <h2>Projects</h2>
-    <ul>
-      <li><strong>Amazon Clone</strong> – <a href="https://github.com/subhashree212/amazon-website-clone" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-      <li><strong>Sentiment Analysis App</strong> – <a href="https://github.com/subhashree212/flask-sentiment-app" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-    </ul>
+  <section class="section" id="projects">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card featured">
+        <div class="project-tag">Featured</div>
+        <h3>Auth + Role-Based API System</h3>
+        <p>Secure backend with JWT auth, bcrypt hashing, and role-based access control. Node.js, Express, MySQL. Deployed on Render.</p>
+        <div class="project-stack"><span>Node.js</span><span>Express</span><span>JWT</span><span>MySQL</span></div>
+        <div class="project-links">
+          <a href="https://auth-system-zz2b.onrender.com" target="_blank" class="btn btn-sm">Live</a>
+          <a href="https://github.com/subhashree212/auth-system" target="_blank" class="btn btn-sm outline">GitHub</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <h3>Sentiment Analysis Web App</h3>
+        <p>REST API for real-time sentiment prediction using TF-IDF and Logistic Regression. Deployed via Flask.</p>
+        <div class="project-stack"><span>Python</span><span>Flask</span><span>scikit-learn</span></div>
+        <div class="project-links">
+          <a href="https://github.com/subhashree212/flask-sentiment-app" target="_blank" class="btn btn-sm outline">GitHub</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <h3>Amazon Homepage Clone</h3>
+        <p>Pixel-accurate, fully responsive clone of Amazon homepage.</p>
+        <div class="project-stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+        <div class="project-links">
+          <a href="https://github.com/subhashree212/amazon-website-clone" target="_blank" class="btn btn-sm outline">GitHub</a>
+        </div>
+      </div>
+    </div>
   </section>
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:subhashreesenapati9090@gmail.com" class="email-link">Send Email</a></p>
-    <p>GitHub: <a href="https://github.com/subhashree212" target="_blank" rel="noopener noreferrer">github.com/subhashree212</a></p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/subhashree-22c" target="_blank" rel="noopener noreferrer">linkedin.com/in/subhashree-22c</a></p>
+  <section class="section" id="contact">
+    <h2 class="section-title">Contact</h2>
+    <p class="contact-sub">I am actively looking for software engineering roles. Let us connect!</p>
+    <div class="contact-cards">
+      <a href="mailto:subhashreesenapati898@gmail.com" class="contact-card"><span>Email</span> subhashreesenapati898@gmail.com</a>
+      <a href="https://github.com/subhashree212" target="_blank" class="contact-card"><span>GitHub</span> github.com/subhashree212</a>
+      <a href="https://www.linkedin.com/in/subhashree-18cc/" target="_blank" class="contact-card"><span>LinkedIn</span> linkedin.com/in/subhashree-18cc</a>
+    </div>
   </section>
-  
-   
-  
-
+  <footer><p>Built by Subhashree Senapati 2025</p></footer>
+  <script src="script.js"></script>
 </body>
 </html>
