@@ -6,7 +6,7 @@
 <title>Subhashree Senapati | Software Engineer</title>
 <meta name="description" content="CS Graduate | Backend Developer | Bengaluru. Building scalable systems, REST APIs, and AI-integrated products.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Clash+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -16,11 +16,11 @@
   --accent:#7c3aed;--accent2:#a855f7;--accentg:#06b6d4;
   --glow:rgba(124,58,237,0.4);--glow2:rgba(6,182,212,0.3);
   --mono:'JetBrains Mono',monospace;
-  --display:'Clash Display','Inter',sans-serif;
+  --display:'Syne','Inter',sans-serif;
   --body:'Inter',sans-serif;
 }
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;cursor:none}
+body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;cursor:none;overflow-y:auto}
 
 /* ── CUSTOM CURSOR ── */
 #cursor{position:fixed;width:8px;height:8px;background:var(--accent2);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width 0.2s,height 0.2s,background 0.2s;mix-blend-mode:difference}
@@ -77,14 +77,16 @@ nav.solid{background:rgba(5,5,8,0.9);backdrop-filter:blur(20px);padding:16px 60p
 .mob-menu a:hover{color:var(--accent2)}
 
 /* ── HERO ── */
-#hero{min-height:100vh;display:flex;align-items:center;padding:120px 60px 80px;position:relative;z-index:2}
+#hero{min-height:100vh;display:flex;align-items:center;padding:100px 60px 60px;position:relative;z-index:2}
 .hero-inner{max-width:1100px;width:100%}
 .hero-badge{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;color:var(--accent2);letter-spacing:2px;padding:8px 16px;border:1px solid rgba(168,85,247,0.25);background:rgba(124,58,237,0.06);margin-bottom:40px;animation:fadeUp 0.6s 0.3s both}
 .hero-badge-dot{width:6px;height:6px;background:var(--accentg);border-radius:50%;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1;box-shadow:0 0 8px var(--accentg)}50%{opacity:0.4;box-shadow:none}}
-.hero-name{font-family:var(--display);font-size:clamp(52px,9vw,110px);font-weight:700;line-height:0.9;letter-spacing:-3px;margin-bottom:32px;animation:fadeUp 0.6s 0.5s both}
-.hero-name .line1{display:block;color:var(--text)}
-.hero-name .line2{display:block;background:linear-gradient(135deg,var(--accent2) 0%,var(--accentg) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-name{font-family:var(--display);font-size:clamp(36px,5.5vw,72px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:24px;color:var(--text);position:relative}
+.hero-name .name-line{display:block;min-height:1.1em;overflow:visible}
+/* shimmer sweep */
+.hero-name::after{content:'';position:absolute;top:0;left:-80%;width:60%;height:100%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.05) 50%,transparent 60%);animation:shimmerSweep 4s ease 2.5s infinite;pointer-events:none;z-index:1}
+@keyframes shimmerSweep{0%{left:-80%}100%{left:130%}}
 .hero-sub{display:flex;align-items:center;gap:16px;font-family:var(--mono);font-size:13px;color:var(--muted);margin-bottom:40px;animation:fadeUp 0.6s 0.7s both}
 .hero-sub span{color:var(--accent2)}
 .hero-desc{font-size:18px;color:var(--muted);max-width:600px;line-height:1.75;margin-bottom:52px;animation:fadeUp 0.6s 0.9s both}
@@ -251,6 +253,157 @@ footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 60p
 }
 @media(max-width:600px){.skills-wrap{grid-template-columns:1fr}.hero-name{letter-spacing:-1px}.stat-item{padding:20px 24px}}
 
+
+/* ── BORDER TRACE ANIMATION ── */
+.proj-card{position:relative}
+/* Corner accent lines instead of full square */
+.proj-card .trace-svg{display:none}
+.proj-card::before,.proj-card::after{content:'';position:absolute;width:24px;height:24px;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.3s,width 0.4s,height 0.4s}
+.proj-card::before{top:0;left:0;border-top:2px solid var(--accent2);border-left:2px solid var(--accent2)}
+.proj-card::after{bottom:0;right:0;border-bottom:2px solid var(--accentg);border-right:2px solid var(--accentg)}
+.proj-card:hover::before,.proj-card:hover::after{opacity:1;width:40px;height:40px}
+.proj-card.trace-active::before,.proj-card.trace-active::after{opacity:0.6}
+
+
+
+
+
+/* ══════════════════════════════
+   LIVE API VISUALISER
+══════════════════════════════ */
+#apiViz{position:relative;z-index:2;background:var(--bg1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:0;overflow:hidden}
+.viz-header{display:flex;align-items:center;justify-content:space-between;padding:20px 60px;border-bottom:1px solid var(--border);background:rgba(10,10,15,0.8)}
+.viz-title{font-family:var(--mono);font-size:11px;color:var(--accent2);letter-spacing:3px;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.viz-dot{width:6px;height:6px;border-radius:50%;background:var(--accentg);animation:blink 1.5s infinite}
+.viz-controls{display:flex;gap:8px}
+.viz-btn{font-family:var(--mono);font-size:10px;padding:5px 14px;background:transparent;border:1px solid var(--border2);color:var(--muted);cursor:pointer;letter-spacing:1px;transition:all 0.2s}
+.viz-btn:hover,.viz-btn.active{border-color:var(--accent2);color:var(--accent2);background:rgba(168,85,247,0.08)}
+.viz-body{display:grid;grid-template-columns:1fr 340px;min-height:420px}
+.viz-left{padding:32px 40px;border-right:1px solid var(--border);position:relative;overflow:hidden}
+/* flow canvas */
+#flowCanvas{width:100%;height:320px;display:block}
+/* right panel - log */
+.viz-right{display:flex;flex-direction:column;overflow:hidden}
+.viz-log-header{padding:12px 20px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:2px}
+.viz-log{flex:1;overflow-y:auto;padding:12px 0}
+.viz-log::-webkit-scrollbar{width:2px}
+.viz-log::-webkit-scrollbar-thumb{background:var(--border2)}
+.log-entry{padding:6px 20px;font-family:var(--mono);font-size:10.5px;line-height:1.5;border-left:2px solid transparent;animation:logSlide 0.3s ease}
+@keyframes logSlide{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.log-entry.success{border-left-color:#3fb950;color:#3fb950}
+.log-entry.error{border-left-color:#f85149;color:#f85149}
+.log-entry.info{border-left-color:var(--accent2);color:var(--accent2)}
+.log-entry.warn{border-left-color:#e3b341;color:#e3b341}
+.log-entry.dim{border-left-color:var(--border2);color:var(--muted)}
+/* stats bar */
+.viz-stats{display:flex;gap:0;border-top:1px solid var(--border);background:var(--bg)}
+.viz-stat{flex:1;padding:14px 20px;text-align:center;border-right:1px solid var(--border)}
+.viz-stat:last-child{border-right:none}
+.viz-stat-n{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text);display:block;line-height:1}
+.viz-stat-l{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:2px;margin-top:4px;display:block;text-transform:uppercase}
+/* method badges */
+.m-get{color:#3fb950}
+.m-post{color:#79c0ff}
+.m-del{color:#f85149}
+/* responsive */
+@media(max-width:900px){
+  .viz-body{grid-template-columns:1fr}
+  .viz-right{display:none}
+  .viz-header{padding:16px 24px}
+  .viz-left{padding:20px 16px}
+  #flowCanvas{height:240px}
+}
+
+
+/* ── PROJECT CARD PREVIEW ── */
+.proj-preview{width:100%;height:150px;display:block;margin-bottom:20px;background:#0a0a0f;border:1px solid var(--border)}
+
+
+/* ── HERO SPLIT ── */
+#hero .hero-inner{display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:start;width:100%;max-width:1140px}
+.hero-terminal{background:#0d1117;border:1px solid #21262d;overflow:hidden;animation:fadeUp 0.8s 1.4s both;flex-shrink:0}
+.ht-bar{display:flex;align-items:center;gap:6px;padding:10px 16px;background:#161b22;border-bottom:1px solid #21262d}
+.ht-dot{width:10px;height:10px;border-radius:50%}
+.ht-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:#484f58;margin-left:8px;letter-spacing:1px}
+.ht-body{padding:16px 18px;height:320px;overflow:hidden;position:relative}
+#htPre{font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.7;color:#e6edf3;margin:0;white-space:pre-wrap;word-break:break-all}
+.ht-cursor{display:inline-block;width:7px;height:13px;background:#a855f7;vertical-align:middle;animation:htBlink 1s step-end infinite;margin-left:1px}
+@keyframes htBlink{0%,100%{opacity:1}50%{opacity:0}}
+@media(max-width:1100px){
+  #hero .hero-inner{grid-template-columns:1fr}
+  .hero-terminal{display:none}
+}
+@media(min-width:1101px){
+  .hero-terminal{display:block!important}
+}
+
+
+/* ══ MATRIX RAIN CANVAS ══ */
+#matrixCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.07}
+#hero{overflow:hidden}
+#hero .hero-inner{position:relative;z-index:2}
+
+/* ══ HERO STAT CARDS ══ */
+.hero-stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:40px;animation:fadeUp 0.8s 1.4s both}
+.hsc{background:var(--bg1);padding:16px 20px;position:relative;overflow:hidden;transition:background 0.2s}
+.hsc:hover{background:var(--bg2)}
+.hsc-n{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--text);display:block;line-height:1}
+.hsc-l{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:2px;margin-top:6px;display:block;text-transform:uppercase}
+.hsc-bar{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accentg));width:0;transition:width 1.2s cubic-bezier(0.4,0,0.2,1)}
+
+/* ══ HERO GITHUB CONTRIB ══ */
+.hero-contrib{margin-top:32px;animation:fadeUp 0.8s 1.6s both}
+.contrib-label{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:2px;margin-bottom:10px}
+#contribCanvas{width:100%;height:56px;display:block}
+
+
+/* ══ PROJECT FILTERS ══ */
+.proj-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;animation:fadeUp 0.5s 0.2s both}
+.pf-btn{font-family:var(--mono);font-size:11px;padding:8px 20px;background:transparent;border:1px solid var(--border2);color:var(--muted);cursor:pointer;letter-spacing:2px;text-transform:uppercase;transition:all 0.2s;position:relative;overflow:hidden}
+.pf-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent),var(--accent2));opacity:0;transition:opacity 0.2s;z-index:0}
+.pf-btn span{position:relative;z-index:1}
+.pf-btn:hover{border-color:var(--accent2);color:var(--text)}
+.pf-btn.active{border-color:var(--accent2);color:white}
+.pf-btn.active::before{opacity:1}
+
+/* ══ PROJECT CARD EXPAND ══ */
+.proj-card{transition:background 0.3s,transform 0.3s,box-shadow 0.3s}
+.proj-card.hidden{display:none}
+.proj-expand-btn{font-family:var(--mono);font-size:10px;color:var(--muted);background:none;border:1px solid var(--border);padding:6px 14px;cursor:pointer;letter-spacing:1px;margin-top:8px;transition:all 0.2s;width:100%}
+.proj-expand-btn:hover{border-color:var(--accent2);color:var(--accent2)}
+.proj-details{display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);animation:expandIn 0.3s ease}
+.proj-details.open{display:block}
+@keyframes expandIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.proj-detail-row{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--border);gap:16px}
+.proj-detail-row:last-child{border-bottom:none}
+.pdr-label{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:1px;flex-shrink:0;text-transform:uppercase}
+.pdr-val{font-family:var(--mono);font-size:10px;color:var(--muted);text-align:right}
+.pdr-val.green{color:#3fb950}
+.pdr-val.blue{color:#79c0ff}
+.pdr-val.purple{color:var(--accent2)}
+
+/* ══ LIVE DEMO BUTTON ══ */
+.proj-live-btn{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;padding:10px 20px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border:none;cursor:pointer;letter-spacing:1px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;position:relative;overflow:hidden;margin-top:16px;width:100%;justify-content:center}
+.proj-live-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,0.12),transparent);transform:translateX(-100%);transition:transform 0.4s}
+.proj-live-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,58,237,0.4)}
+.proj-live-btn:hover::after{transform:translateX(100%)}
+.proj-live-btn.ghost{background:transparent;border:1px solid var(--border2);color:var(--muted)}
+.proj-live-btn.ghost:hover{border-color:var(--accent2);color:var(--accent2);box-shadow:none}
+.proj-live-btn svg{width:13px;height:13px;fill:currentColor;flex-shrink:0}
+.plb-dot{width:6px;height:6px;border-radius:50%;background:#3fb950;animation:blink 1.5s infinite;flex-shrink:0}
+
+
+/* ── MINI CODE SNIPPETS inside project cards ── */
+.proj-code{background:#0d1117;border:1px solid #21262d;margin-bottom:20px;overflow:hidden;border-radius:0}
+.proj-code-bar{display:flex;align-items:center;gap:5px;padding:7px 12px;background:#161b22;border-bottom:1px solid #21262d}
+.pcd{width:8px;height:8px;border-radius:50%}
+.proj-code-body{padding:10px 14px;height:88px;overflow:hidden;position:relative}
+.proj-code-body pre{font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.6;margin:0;color:#e6edf3;white-space:pre-wrap}
+.tk-k{color:#ff7b72}.tk-f{color:#d2a8ff}.tk-s{color:#a5d6ff}.tk-c{color:#3fb950}.tk-n{color:#ffa657}.tk-d{color:#484f58;font-style:italic}
+
+
+.hero-left-col{min-width:0}
+
 /* ── CANVAS PARTICLES ── */
 #particles-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.5}
 /* ── STAGGER CHILDREN ── */
@@ -262,12 +415,7 @@ footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 60p
 .stagger-children.triggered > *:nth-child(5){opacity:1;transform:none;transition-delay:0.45s}
 .stagger-children.triggered > *:nth-child(6){opacity:1;transform:none;transition-delay:0.55s}
 /* ── GLITCH ── */
-.glitch{position:relative;display:inline-block}
-.glitch::before,.glitch::after{content:attr(data-text);position:absolute;inset:0;background:transparent;-webkit-background-clip:text;background-clip:text}
-.glitch::before{left:2px;text-shadow:-2px 0 #06b6d4;clip-path:polygon(0 0,100% 0,100% 45%,0 45%);animation:glitch1 5s infinite}
-.glitch::after{left:-2px;text-shadow:2px 0 #a855f7;clip-path:polygon(0 60%,100% 60%,100% 100%,0 100%);animation:glitch2 5s infinite}
-@keyframes glitch1{0%,90%,100%{transform:translate(0);opacity:0}92%{transform:translate(-3px,1px);opacity:0.8}94%{transform:translate(3px,-1px);opacity:0.6}96%{transform:translate(0);opacity:0}}
-@keyframes glitch2{0%,93%,100%{transform:translate(0);opacity:0}95%{transform:translate(3px,2px);opacity:0.7}97%{transform:translate(-3px,-2px);opacity:0.5}99%{transform:translate(0);opacity:0}}
+/* glitch removed */
 /* ── RIPPLE ── */
 .ripple-btn{position:relative;overflow:hidden}
 .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.25);transform:scale(0);animation:rippleAnim 0.6s linear;pointer-events:none}
@@ -292,9 +440,7 @@ footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 60p
 /* ── ACTIVE NAV ── */
 .nav-links a.active{color:var(--text)}
 .nav-links a.active::after{width:100%}
-/* ── CHAR SPLIT ── */
-.char{display:inline-block;animation:charDrop 0.6s cubic-bezier(0.22,1,0.36,1) both}
-@keyframes charDrop{from{opacity:0;transform:translateY(60%) rotate(5deg)}to{opacity:1;transform:none}}
+/* char split removed */
 
 </style>
 </head>
@@ -346,11 +492,13 @@ footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 60p
 
 <!-- HERO -->
 <section id="hero">
+  <canvas id="matrixCanvas"></canvas>
   <div class="hero-inner">
+  <div class="hero-left-col">
     <div class="hero-badge"><span class="hero-badge-dot"></span>Available for hire · Bengaluru, India</div>
-    <h1 class="hero-name">
-      <span class="line1">Subhashree</span>
-      <span class="line2 glitch" data-text="Senapati">Senapati</span>
+    <h1 class="hero-name" id="heroName">
+      <span class="name-line" id="nameLine1"></span>
+      <span class="name-line" id="nameLine2"></span>
     </h1>
     <div class="hero-sub">
       <span>~/dev $</span>
@@ -380,14 +528,32 @@ footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 60p
         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
       </a>
     </div>
-    <div class="hero-stats">
-      <div class="stat-item"><span class="stat-n"><span class="cnt" data-to="4">0</span></span><span class="stat-l">Projects</span></div>
-      <div class="stat-item"><span class="stat-n"><span class="cnt" data-to="2">0</span></span><span class="stat-l">Internships</span></div>
-      <div class="stat-item"><span class="stat-n"><span class="cnt" data-to="1">0</span></span><span class="stat-l">Live API</span></div>
-      <div class="stat-item"><span class="stat-n"><span class="cnt" data-to="7">0</span>+</span><span class="stat-l">Technologies</span></div>
-      <div class="stat-item"><span class="stat-n"><span class="cnt" data-to="778" data-dec="true">0</span></span><span class="stat-l">CGPA</span></div>
+    <div class="hero-stat-cards">
+      <div class="hsc"><span class="hsc-n"><span class="cnt" data-to="4">0</span></span><span class="hsc-l">Projects Deployed</span><div class="hsc-bar" data-w="80"></div></div>
+      <div class="hsc"><span class="hsc-n"><span class="cnt" data-to="2">0</span></span><span class="hsc-l">Internships</span><div class="hsc-bar" data-w="50"></div></div>
+      <div class="hsc"><span class="hsc-n"><span class="cnt" data-to="7">0</span>+</span><span class="hsc-l">Technologies</span><div class="hsc-bar" data-w="90"></div></div>
+      <div class="hsc"><span class="hsc-n"><span class="cnt" data-to="778" data-dec="true">0</span></span><span class="hsc-l">CGPA / 10</span><div class="hsc-bar" data-w="78"></div></div>
+    </div>
+    <div class="hero-contrib">
+      <div class="contrib-label">ACTIVITY — Last 6 months</div>
+      <canvas id="contribCanvas"></canvas>
+    </div>
+  </div><!-- end hero-left-col -->
+
+  <!-- HERO TERMINAL -->
+  <div class="hero-terminal">
+    <div class="ht-bar">
+      <span class="ht-dot" style="background:#ff5f56"></span>
+      <span class="ht-dot" style="background:#ffbd2e"></span>
+      <span class="ht-dot" style="background:#27c93f"></span>
+      <span class="ht-title">~/auth-api $ node server.js</span>
+    </div>
+    <div class="ht-body">
+      <pre id="htPre"></pre>
+      <span class="ht-cursor" id="htCursor"></span>
     </div>
   </div>
+
   <div class="hero-scroll-hint"><span>scroll</span><div class="scroll-line"></div></div>
 </section>
 
@@ -489,9 +655,17 @@ footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 60p
   <div class="maxw">
     <div class="section-eyebrow reveal">03 · work</div>
     <h2 class="section-h reveal wipe">Projects</h2>
+    <div class="proj-filters">
+      <button class="pf-btn active" data-filter="all" onclick="filterProj(this)"><span>All Projects</span></button>
+      <button class="pf-btn" data-filter="backend" onclick="filterProj(this)"><span>Backend</span></button>
+      <button class="pf-btn" data-filter="ml" onclick="filterProj(this)"><span>AI / ML</span></button>
+      <button class="pf-btn" data-filter="frontend" onclick="filterProj(this)"><span>Frontend</span></button>
+      <button class="pf-btn" data-filter="building" onclick="filterProj(this)"><span>Building</span></button>
+    </div>
     <div class="proj-grid stagger-children" id="projGrid">
-      <div class="proj-card reveal spotlight"><div class="spotlight-shine"></div>
+      <div class="proj-card reveal spotlight" data-cat="backend"><div class="spotlight-shine"></div><svg class="trace-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><defs><linearGradient id="traceGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7c3aed"/><stop offset="50%" stop-color="#a855f7"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs><rect class="trace-rect" x="0.75" y="0.75" width="98.5" height="98.5" rx="0"/></svg>
         <div class="proj-glow"></div>
+        <canvas class="proj-preview" id="prev1"></canvas>
         <div class="proj-meta"><span class="proj-num">01 / FEATURED</span><span class="proj-badge">Live Deployment</span></div>
         <h3 class="proj-title">Auth + Role-Based API System</h3>
         <p class="proj-desc">Production-ready backend with JWT authentication, bcrypt password hashing, and role-based access control. Deployed on Render with Aiven cloud MySQL. All endpoints tested via Postman covering edge cases.</p>
@@ -500,9 +674,19 @@ footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 60p
           <a href="https://auth-system-zz2b.onrender.com" target="_blank" rel="noopener" class="proj-link"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Live ↗</a>
           <a href="https://github.com/subhashree212/auth-system" target="_blank" rel="noopener" class="proj-link"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>GitHub ↗</a>
         </div>
+        <a href="https://auth-system-zz2b.onrender.com" target="_blank" rel="noopener" class="proj-live-btn ripple-btn"><span class="plb-dot"></span>Open Live Demo<svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        <button class="proj-expand-btn" onclick="toggleDetails(this)">▾ View Tech Details</button>
+        <div class="proj-details">
+          <div class="proj-detail-row"><span class="pdr-label">Deployed</span><span class="pdr-val green">Render + Aiven MySQL</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Auth</span><span class="pdr-val blue">JWT RS256 + bcrypt salt 10</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Endpoints</span><span class="pdr-val purple">15+ REST endpoints</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Roles</span><span class="pdr-val">Admin / User RBAC</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Tested</span><span class="pdr-val green">Postman — edge cases covered</span></div>
+        </div>
       </div>
-      <div class="proj-card reveal spotlight"><div class="spotlight-shine"></div>
+      <div class="proj-card reveal spotlight" data-cat="ml"><div class="spotlight-shine"></div><svg class="trace-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><defs><linearGradient id="traceGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7c3aed"/><stop offset="50%" stop-color="#a855f7"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs><rect class="trace-rect" x="0.75" y="0.75" width="98.5" height="98.5" rx="0"/></svg>
         <div class="proj-glow"></div>
+        <canvas class="proj-preview" id="prev2"></canvas>
         <div class="proj-meta"><span class="proj-num">02 / ML</span><span class="proj-badge">API</span></div>
         <h3 class="proj-title">Sentiment Analysis App</h3>
         <p class="proj-desc">REST API for real-time text sentiment prediction using TF-IDF + Logistic Regression. Trained on a custom dataset achieving 85%+ accuracy. Model-agnostic pipeline with JSON response interface.</p>
@@ -510,9 +694,19 @@ footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 60p
         <div class="proj-links">
           <a href="https://github.com/subhashree212/flask-sentiment-app" target="_blank" rel="noopener" class="proj-link"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>GitHub ↗</a>
         </div>
+        <a href="https://github.com/subhashree212/flask-sentiment-app" target="_blank" rel="noopener" class="proj-live-btn ghost ripple-btn"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>View on GitHub</a>
+        <button class="proj-expand-btn" onclick="toggleDetails(this)">▾ View Tech Details</button>
+        <div class="proj-details">
+          <div class="proj-detail-row"><span class="pdr-label">Model</span><span class="pdr-val blue">Logistic Regression</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Vectorizer</span><span class="pdr-val purple">TF-IDF (scikit-learn)</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Accuracy</span><span class="pdr-val green">85%+ on held-out set</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">API</span><span class="pdr-val">Flask REST — JSON output</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Design</span><span class="pdr-val blue">Model-agnostic pipeline</span></div>
+        </div>
       </div>
-      <div class="proj-card reveal spotlight"><div class="spotlight-shine"></div>
+      <div class="proj-card reveal spotlight" data-cat="frontend"><div class="spotlight-shine"></div><svg class="trace-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><defs><linearGradient id="traceGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7c3aed"/><stop offset="50%" stop-color="#a855f7"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs><rect class="trace-rect" x="0.75" y="0.75" width="98.5" height="98.5" rx="0"/></svg>
         <div class="proj-glow"></div>
+        <canvas class="proj-preview" id="prev3"></canvas>
         <div class="proj-meta"><span class="proj-num">03 / FRONTEND</span><span class="proj-badge">Clone</span></div>
         <h3 class="proj-title">Amazon Homepage Clone</h3>
         <p class="proj-desc">Fully responsive Amazon clone with working cart, login/signup, live search, category filters and 4 product sections. Pixel-accurate layout with CSS grid and flexbox.</p>
@@ -520,18 +714,64 @@ footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 60p
         <div class="proj-links">
           <a href="https://github.com/subhashree212/amazon-website-clone" target="_blank" rel="noopener" class="proj-link"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>GitHub ↗</a>
         </div>
+        <a href="https://github.com/subhashree212/amazon-website-clone" target="_blank" rel="noopener" class="proj-live-btn ghost ripple-btn"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>View on GitHub</a>
+        <button class="proj-expand-btn" onclick="toggleDetails(this)">▾ View Tech Details</button>
+        <div class="proj-details">
+          <div class="proj-detail-row"><span class="pdr-label">Layout</span><span class="pdr-val blue">CSS Grid + Flexbox</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Features</span><span class="pdr-val">Cart · Search · Login · Filters</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Sections</span><span class="pdr-val purple">4 product categories</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Responsive</span><span class="pdr-val green">Mobile + Desktop</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">JS</span><span class="pdr-val">Vanilla — zero dependencies</span></div>
+        </div>
       </div>
-      <div class="proj-card reveal spotlight"><div class="spotlight-shine"></div>
+      <div class="proj-card reveal spotlight" data-cat="building"><div class="spotlight-shine"></div><svg class="trace-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><defs><linearGradient id="traceGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7c3aed"/><stop offset="50%" stop-color="#a855f7"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs><rect class="trace-rect" x="0.75" y="0.75" width="98.5" height="98.5" rx="0"/></svg>
         <div class="proj-glow"></div>
+        <canvas class="proj-preview" id="prev4"></canvas>
         <div class="proj-meta"><span class="proj-num">04 / BUILDING</span><span class="proj-badge wip">In Progress</span></div>
         <h3 class="proj-title">URL Shortener + Analytics</h3>
         <p class="proj-desc">REST API generating short codes via nanoid, handling high-frequency redirects, and logging click analytics per URL. Schema designed for read-heavy workloads with indexed lookups and time-series analytics.</p>
         <div class="proj-stack"><span class="stag">Node.js</span><span class="stag">Express</span><span class="stag">MySQL</span><span class="stag">nanoid</span></div>
         <div class="proj-links"><span class="proj-link" style="color:var(--dim);cursor:default">Coming soon...</span></div>
+        <button class="proj-live-btn ghost ripple-btn" style="opacity:0.5;cursor:not-allowed">⚙ In Development...</button>
+        <button class="proj-expand-btn" onclick="toggleDetails(this)">▾ View Tech Details</button>
+        <div class="proj-details">
+          <div class="proj-detail-row"><span class="pdr-label">Short Code</span><span class="pdr-val blue">nanoid(6) — collision-safe</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">DB Design</span><span class="pdr-val purple">Indexed short_code lookups</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Analytics</span><span class="pdr-val">Click count · timestamp · UA</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Pattern</span><span class="pdr-val green">Read-heavy optimisation</span></div>
+          <div class="proj-detail-row"><span class="pdr-label">Deploy</span><span class="pdr-val">Render + Aiven MySQL</span></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+
+<!-- ══ LIVE API VISUALISER ══ -->
+<div id="apiViz">
+  <div class="viz-header">
+    <div class="viz-title"><span class="viz-dot"></span>Live API Architecture — Auth + RBAC System</div>
+    <div class="viz-controls">
+      <button class="viz-btn active" id="btnPlay" onclick="vizToggle()">⏸ Pause</button>
+      <button class="viz-btn" id="btnReset" onclick="vizReset()">↺ Reset</button>
+    </div>
+  </div>
+  <div class="viz-body">
+    <div class="viz-left">
+      <canvas id="flowCanvas"></canvas>
+    </div>
+    <div class="viz-right">
+      <div class="viz-log-header">REQUEST LOG</div>
+      <div class="viz-log" id="vizLog"></div>
+    </div>
+  </div>
+  <div class="viz-stats">
+    <div class="viz-stat"><span class="viz-stat-n" id="statReq">0</span><span class="viz-stat-l">Requests</span></div>
+    <div class="viz-stat"><span class="viz-stat-n" id="statOk" style="color:#3fb950">0</span><span class="viz-stat-l">Success</span></div>
+    <div class="viz-stat"><span class="viz-stat-n" id="statFail" style="color:#f85149">0</span><span class="viz-stat-l">Rejected</span></div>
+    <div class="viz-stat"><span class="viz-stat-n" id="statMs">0ms</span><span class="viz-stat-l">Avg Latency</span></div>
+  </div>
+</div>
 
 <!-- CONTACT -->
 <section id="contact">
@@ -609,7 +849,7 @@ const ticker=setInterval(()=>{si++;if(si<statuses.length)stEl.textContent=status
 let p=0;
 const pi=setInterval(()=>{p=Math.min(p+Math.random()*12,100);pctEl.textContent=Math.floor(p)+'%';if(p>=100){clearInterval(pi);clearInterval(ticker)}},100);
 window.addEventListener('load',()=>{
-  setTimeout(()=>{document.getElementById('loader').classList.add('out');document.body.style.overflow='auto'},1600);
+  setTimeout(()=>{document.getElementById('loader').classList.add('out');document.body.style.overflow='auto'},800);
 });
 
 // ── TYPEWRITER
@@ -878,6 +1118,1088 @@ window.addEventListener('scroll',()=>{
     bar.style.width=pct+'%';
   },{passive:true});
 })();
+
+
+// ── NAME ANIMATION — letter by letter, blur-to-clear reveal
+(function(){
+  const line1El = document.getElementById('nameLine1');
+  const line2El = document.getElementById('nameLine2');
+  if(!line1El || !line2El) return;
+
+  const h1 = document.getElementById('heroName');
+  h1.style.position = 'relative';
+  h1.style.overflow = 'visible';
+
+  const words = ['Subhashree', 'Senapati'];
+  const els = [line1El, line2El];
+  const allSpans = [];
+
+  els.forEach((el, wi) => {
+    const word = words[wi];
+    const baseDelay = wi * 0.35;
+    el.innerHTML = '';
+    word.split('').forEach((ch, ci) => {
+      const span = document.createElement('span');
+      span.textContent = ch;
+      span.style.cssText = [
+        'display:inline-block',
+        'opacity:0',
+        'transform:translateY(36px) scale(0.85)',
+        'filter:blur(10px)',
+        'transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1),filter 0.6s ease',
+        'transition-delay:' + (baseDelay + ci * 0.05) + 's',
+        'will-change:transform,opacity,filter'
+      ].join(';');
+      el.appendChild(span);
+      allSpans.push(span);
+    });
+  });
+
+  // fire after loader fades out
+  // Fire immediately, no loader dependency
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      allSpans.forEach(s => {
+        s.style.opacity = '1';
+        s.style.transform = 'translateY(0) scale(1)';
+        s.style.filter = 'blur(0)';
+      });
+    }, 300);
+  });
+})();
+
+
+// ── BORDER TRACE on project cards
+(function(){
+  const cards = document.querySelectorAll('.proj-card');
+  cards.forEach(card => {
+    const rect = card.querySelector('.trace-rect');
+    if(!rect) return;
+
+    // Set up perimeter length after layout
+    function setupTrace(){
+      const w = card.offsetWidth;
+      const h = card.offsetHeight;
+      // viewBox is 0 0 100 100 so perimeter in those units
+      const perimeter = 2 * (98.5 + 98.5); // ~394
+      rect.style.strokeDasharray = perimeter;
+      rect.style.strokeDashoffset = perimeter;
+      card._tracePerimeter = perimeter;
+    }
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          setupTrace();
+          card.classList.add('trace-active');
+          // animate draw
+          const perim = card._tracePerimeter || 394;
+          rect.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1), opacity 0.1s';
+          rect.style.strokeDashoffset = '0';
+          obs.unobserve(card);
+
+          // after draw, pulse glow
+          setTimeout(() => {
+            rect.style.transition = 'stroke-opacity 0.8s ease';
+            let pulse = true;
+            setInterval(() => {
+              rect.style.strokeOpacity = pulse ? '0.3' : '0.8';
+              pulse = !pulse;
+            }, 1200);
+          }, 1300);
+        }
+      });
+    }, {threshold: 0.3});
+
+    obs.observe(card);
+
+    // re-trace on hover
+    card.addEventListener('mouseenter', () => {
+      setupTrace();
+      const perim = card._tracePerimeter || 394;
+      rect.style.transition = 'none';
+      rect.style.strokeDashoffset = perim;
+      rect.style.strokeOpacity = '1';
+      requestAnimationFrame(() => {
+        rect.style.transition = 'stroke-dashoffset 0.7s cubic-bezier(0.4,0,0.2,1)';
+        rect.style.strokeDashoffset = '0';
+      });
+    });
+  });
+})();
+
+
+// ── LIVE CODE TERMINAL ANIMATION
+(function(){
+  const pre = document.getElementById('codePre');
+  if(!pre) return;
+
+  const lines = [
+    {t:50,  h:'<span class="token-cm">// JWT Auth + RBAC — Node.js</span>'},
+    {t:120, h:''},
+    {t:180, h:'<span class="token-kw">const</span> <span class="token-fn">express</span> = <span class="token-fn">require</span>(<span class="token-str">\'express\'</span>)'},
+    {t:260, h:'<span class="token-kw">const</span> <span class="token-var">jwt</span> = <span class="token-fn">require</span>(<span class="token-str">\'jsonwebtoken\'</span>)'},
+    {t:340, h:'<span class="token-kw">const</span> <span class="token-var">bcrypt</span> = <span class="token-fn">require</span>(<span class="token-str">\'bcrypt\'</span>)'},
+    {t:460, h:''},
+    {t:520, h:'<span class="token-cm">// Auth middleware</span>'},
+    {t:600, h:'<span class="token-kw">const</span> <span class="token-fn">verifyToken</span> = (<span class="token-var">req</span>, <span class="token-var">res</span>, <span class="token-var">next</span>) <span class="token-op">=></span> {'},
+    {t:700, h:'  <span class="token-kw">const</span> <span class="token-var">token</span> = <span class="token-var">req</span>.headers[<span class="token-str">\'authorization\'</span>]'},
+    {t:800, h:'  <span class="token-kw">if</span> (!<span class="token-var">token</span>) <span class="token-kw">return</span> <span class="token-var">res</span>.<span class="token-fn">status</span>(<span class="token-num">401</span>)'},
+    {t:920, h:'    .<span class="token-fn">json</span>({ <span class="token-var">error</span>: <span class="token-str">\'Unauthorized\'</span> })'},
+    {t:1060,h:'  <span class="token-kw">try</span> {'},
+    {t:1140,h:'    <span class="token-kw">const</span> <span class="token-var">decoded</span> = <span class="token-var">jwt</span>.<span class="token-fn">verify</span>('},
+    {t:1220,h:'      <span class="token-var">token</span>, <span class="token-var">process</span>.env.<span class="token-var">JWT_SECRET</span>'},
+    {t:1320,h:'    )'},
+    {t:1400,h:'    <span class="token-var">req</span>.<span class="token-var">user</span> = <span class="token-var">decoded</span>'},
+    {t:1480,h:'    <span class="token-fn">next</span>()'},
+    {t:1560,h:'  } <span class="token-kw">catch</span> {'},
+    {t:1640,h:'    <span class="token-var">res</span>.<span class="token-fn">status</span>(<span class="token-num">403</span>).<span class="token-fn">json</span>({'},
+    {t:1740,h:'      <span class="token-var">error</span>: <span class="token-str">\'Invalid token\'</span>'},
+    {t:1820,h:'    })'},
+    {t:1880,h:'  }'},
+    {t:1940,h:'}'},
+    {t:2060,h:''},
+    {t:2120,h:'<span class="token-cm">// Role-based access</span>'},
+    {t:2200,h:'<span class="token-kw">const</span> <span class="token-fn">requireRole</span> = (<span class="token-var">role</span>) <span class="token-op">=></span> (<span class="token-var">req</span>, <span class="token-var">res</span>, <span class="token-var">next</span>) <span class="token-op">=></span> {'},
+    {t:2320,h:'  <span class="token-kw">if</span> (<span class="token-var">req</span>.<span class="token-var">user</span>.<span class="token-var">role</span> <span class="token-op">!==</span> <span class="token-var">role</span>)'},
+    {t:2420,h:'    <span class="token-kw">return</span> <span class="token-var">res</span>.<span class="token-fn">status</span>(<span class="token-num">403</span>).<span class="token-fn">json</span>({'},
+    {t:2500,h:'      <span class="token-var">error</span>: <span class="token-str">\'Forbidden\'</span>'},
+    {t:2580,h:'    })'},
+    {t:2640,h:'  <span class="token-fn">next</span>()'},
+    {t:2700,h:'}'},
+    {t:2820,h:''},
+    {t:2880,h:'<span class="token-cm">// Protected admin route</span>'},
+    {t:2960,h:'<span class="token-var">app</span>.<span class="token-fn">get</span>(<span class="token-str">\'/admin/users\'</span>,'},
+    {t:3060,h:'  <span class="token-fn">verifyToken</span>,'},
+    {t:3140,h:'  <span class="token-fn">requireRole</span>(<span class="token-str">\'admin\'</span>),'},
+    {t:3240,h:'  <span class="token-kw">async</span> (<span class="token-var">req</span>, <span class="token-var">res</span>) <span class="token-op">=></span> {'},
+    {t:3340,h:'    <span class="token-kw">const</span> [<span class="token-var">users</span>] = <span class="token-kw">await</span> <span class="token-fn">db</span>.<span class="token-fn">query</span>('},
+    {t:3460,h:'      <span class="token-str">\'SELECT id, name, role\'</span>'},
+    {t:3560,h:'      <span class="token-str">\'FROM users\'</span>'},
+    {t:3640,h:'    )'},
+    {t:3720,h:'    <span class="token-var">res</span>.<span class="token-fn">json</span>({ <span class="token-var">users</span> })'},
+    {t:3820,h:'  }'},
+    {t:3880,h:')'},
+    {t:3980,h:''},
+    {t:4040,h:'<span class="token-ok">// ✓ Server running on :3000</span>'},
+    {t:4120,h:'<span class="token-ok">// ✓ MySQL connected</span>'},
+    {t:4200,h:'<span class="token-ok">// ✓ JWT_SECRET loaded</span>'},
+  ];
+
+  const MAX_VISIBLE = 18; // lines visible at once
+  let displayed = [];
+  let loopTimer;
+
+  function showLines() {
+    displayed = [];
+    pre.innerHTML = '';
+
+    lines.forEach((line, i) => {
+      setTimeout(() => {
+        displayed.push(line.h);
+        // keep only last MAX_VISIBLE lines
+        if(displayed.length > MAX_VISIBLE) displayed.shift();
+        pre.innerHTML = displayed.join('\n');
+        // auto scroll
+        const parent = pre.parentElement;
+        if(parent) parent.scrollTop = parent.scrollHeight;
+      }, line.t);
+    });
+
+    // restart loop after last line + pause
+    const lastT = lines[lines.length-1].t;
+    loopTimer = setTimeout(() => {
+      showLines();
+    }, lastT + 3200);
+  }
+
+  // start after loader
+  setTimeout(showLines, 600);
+})();
+
+
+// ══════════════════════════════════════
+// LIVE API FLOW VISUALISER
+// ══════════════════════════════════════
+(function(){
+  const canvas = document.getElementById('flowCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, running = true;
+  let totalReq=0, totalOk=0, totalFail=0, latencies=[];
+
+  function resize(){
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // ── COLOUR PALETTE
+  const C = {
+    bg:     '#0a0a0f',
+    border: '#1a1a2e',
+    border2:'#252538',
+    text:   '#e8e8f0',
+    muted:  '#6b6b88',
+    dim:    '#353550',
+    purple: '#a855f7',
+    cyan:   '#06b6d4',
+    green:  '#3fb950',
+    red:    '#f85149',
+    orange: '#e3b341',
+    blue:   '#79c0ff',
+  };
+
+  // ── NODES (positions as fraction of canvas)
+  // Will be computed on draw
+  function nodes(){
+    const m = 28; // margin
+    return [
+      // col 0 — client
+      { id:'client', label:'CLIENT',  sub:'React / Postman', x:0.08, y:0.5,  w:100, h:52, color:C.blue,   group:'client' },
+      // col 1 — middleware
+      { id:'rate',   label:'Rate Limiter', sub:'100 req/min', x:0.28, y:0.2, w:110, h:48, color:C.orange, group:'mw' },
+      { id:'cors',   label:'CORS',    sub:'Origins check',   x:0.28, y:0.5,  w:110, h:48, color:C.muted,  group:'mw' },
+      { id:'jwt',    label:'JWT Auth',sub:'Verify token',     x:0.28, y:0.8,  w:110, h:48, color:C.purple, group:'mw' },
+      // col 2 — router
+      { id:'router', label:'ROUTER',  sub:'Express Router',  x:0.52, y:0.5,  w:110, h:52, color:C.cyan,   group:'core' },
+      // col 3 — controllers
+      { id:'auth',   label:'/auth',   sub:'POST login/signup',x:0.74, y:0.22, w:106, h:48, color:C.green,  group:'ctrl' },
+      { id:'user',   label:'/users',  sub:'GET protected',   x:0.74, y:0.5,  w:106, h:48, color:C.blue,   group:'ctrl' },
+      { id:'admin',  label:'/admin',  sub:'RBAC — admin only',x:0.74, y:0.78, w:106, h:48, color:C.red,    group:'ctrl' },
+      // col 4 — db
+      { id:'db',     label:'MySQL',   sub:'Aiven Cloud',     x:0.93, y:0.5,  w:96,  h:52, color:C.orange, group:'db' },
+    ];
+  }
+
+  function npos(n){ return { x: n.x*W, y: n.y*H } }
+
+  // ── PACKETS in flight
+  let packets = [];
+  let pid = 0;
+
+  const ROUTES = [
+    // [path, success, through-nodes, method, color]
+    { path:['client','cors','jwt','router','auth','db'], ok:true,  method:'POST', endpoint:'/auth/login',      color:C.green  },
+    { path:['client','cors','jwt','router','user','db'], ok:true,  method:'GET',  endpoint:'/users/profile',   color:C.blue   },
+    { path:['client','cors','jwt','router','admin','db'],ok:true,  method:'GET',  endpoint:'/admin/users',     color:C.purple },
+    { path:['client','rate'],                            ok:false, method:'GET',  endpoint:'/users/data',      color:C.red    },
+    { path:['client','cors','jwt'],                      ok:false, method:'GET',  endpoint:'/admin/delete',    color:C.red    },
+    { path:['client','cors','jwt','router','auth'],      ok:true,  method:'POST', endpoint:'/auth/signup',     color:C.green  },
+  ];
+
+  function spawnPacket(){
+    if(!running) return;
+    const route = ROUTES[Math.floor(Math.random()*ROUTES.length)];
+    const latency = 80 + Math.floor(Math.random()*320);
+    packets.push({
+      id: pid++,
+      route,
+      nodeIdx: 0,
+      progress: 0,
+      speed: 0.018 + Math.random()*0.012,
+      done: false,
+      latency,
+      alpha: 1,
+      trail: [],
+    });
+    totalReq++;
+    document.getElementById('statReq').textContent = totalReq;
+    addLog(route, latency);
+  }
+
+  function addLog(route, ms){
+    const log = document.getElementById('vizLog');
+    if(!log) return;
+    const d = document.createElement('div');
+    const time = new Date().toLocaleTimeString('en-GB',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    const cls  = route.ok ? 'success' : 'error';
+    const code = route.ok ? '200 OK' : (route.path.length<=2?'429 Rate Limit':'403 Forbidden');
+    d.className = 'log-entry ' + cls;
+    d.innerHTML = `<span style="color:var(--dim)">${time}</span> <span class="m-${route.method.toLowerCase()}">${route.method}</span> ${route.endpoint} <span style="opacity:0.6">${code} ${ms}ms</span>`;
+    log.appendChild(d);
+    // keep last 22 entries
+    while(log.children.length > 22) log.removeChild(log.firstChild);
+    log.scrollTop = log.scrollHeight;
+    // stats
+    if(route.ok){ totalOk++; document.getElementById('statOk').textContent=totalOk; }
+    else { totalFail++; document.getElementById('statFail').textContent=totalFail; }
+    latencies.push(ms);
+    if(latencies.length>20) latencies.shift();
+    const avg = Math.round(latencies.reduce((a,b)=>a+b,0)/latencies.length);
+    document.getElementById('statMs').textContent = avg+'ms';
+  }
+
+  // ── DRAW HELPERS
+  function drawNode(n, ns, glowing){
+    const {x,y} = npos(n);
+    const hw = n.w/2, hh = n.h/2;
+
+    // glow
+    if(glowing){
+      ctx.save();
+      ctx.shadowBlur = 18;
+      ctx.shadowColor = n.color;
+      ctx.strokeStyle = n.color;
+      ctx.lineWidth = 1.5;
+      roundRect(ctx, x-hw, y-hh, n.w, n.h, 4);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // box bg
+    ctx.fillStyle = 'rgba(10,10,15,0.95)';
+    roundRect(ctx, x-hw, y-hh, n.w, n.h, 4);
+    ctx.fill();
+
+    // box border
+    ctx.strokeStyle = glowing ? n.color : C.border2;
+    ctx.lineWidth = glowing ? 1.5 : 1;
+    roundRect(ctx, x-hw, y-hh, n.w, n.h, 4);
+    ctx.stroke();
+
+    // label
+    ctx.fillStyle = glowing ? n.color : C.text;
+    ctx.font = `700 11px 'JetBrains Mono', monospace`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(n.label, x, y - 7);
+
+    // sub
+    ctx.fillStyle = C.muted;
+    ctx.font = `400 9px 'JetBrains Mono', monospace`;
+    ctx.fillText(n.sub, x, y + 8);
+  }
+
+  function roundRect(ctx, x, y, w, h, r){
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.lineTo(x+w-r, y);
+    ctx.arcTo(x+w, y, x+w, y+r, r);
+    ctx.lineTo(x+w, y+h-r);
+    ctx.arcTo(x+w, y+h, x+w-r, y+h, r);
+    ctx.lineTo(x+r, y+h);
+    ctx.arcTo(x, y+h, x, y+h-r, r);
+    ctx.lineTo(x, y+r);
+    ctx.arcTo(x, y, x+r, y, r);
+    ctx.closePath();
+  }
+
+  function drawEdge(a, b, alpha, color, dashed){
+    const pa = npos(a), pb = npos(b);
+    const ax = pa.x + a.w/2, ay = pa.y;
+    const bx = pb.x - b.w/2, by = pb.y;
+    ctx.save();
+    ctx.strokeStyle = color || C.border2;
+    ctx.lineWidth = dashed ? 1 : 0.8;
+    ctx.globalAlpha = alpha || 0.25;
+    if(dashed){ ctx.setLineDash([4,5]); }
+    ctx.beginPath();
+    const cx1 = ax + (bx-ax)*0.45, cy1 = ay;
+    const cx2 = bx - (bx-ax)*0.45, cy2 = by;
+    ctx.moveTo(ax, ay);
+    ctx.bezierCurveTo(cx1,cy1, cx2,cy2, bx,by);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function getEdgePoint(a, b, t){
+    const pa = npos(a), pb = npos(b);
+    const ax = pa.x + a.w/2, ay = pa.y;
+    const bx = pb.x - b.w/2, by = pb.y;
+    const cx1 = ax + (bx-ax)*0.45, cy1 = ay;
+    const cx2 = bx - (bx-ax)*0.45, cy2 = by;
+    // cubic bezier point
+    const mt = 1-t;
+    return {
+      x: mt*mt*mt*ax + 3*mt*mt*t*cx1 + 3*mt*t*t*cx2 + t*t*t*bx,
+      y: mt*mt*mt*ay + 3*mt*mt*t*cy1 + 3*mt*t*t*cy2 + t*t*t*by,
+    };
+  }
+
+  // ── GLOW TRACKER — which nodes are lit
+  const glowMap = {};
+
+  // ── MAIN DRAW
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const ns = nodes();
+    const nodeById = {};
+    ns.forEach(n=>nodeById[n.id]=n);
+
+    // static edges between all connected pairs
+    const edges = [
+      ['client','rate'],['client','cors'],['client','jwt'],
+      ['cors','router'],['jwt','router'],
+      ['router','auth'],['router','user'],['router','admin'],
+      ['auth','db'],['user','db'],['admin','db'],
+    ];
+    edges.forEach(([a,b])=>{
+      if(nodeById[a]&&nodeById[b]) drawEdge(nodeById[a],nodeById[b],0.18,C.border2,false);
+    });
+
+    // nodes
+    ns.forEach(n => drawNode(n, nodeById, glowMap[n.id]>0));
+
+    // packets
+    packets.forEach(pkt => {
+      if(pkt.done) return;
+      const nodeIds = pkt.route.path;
+      const seg = Math.min(pkt.nodeIdx, nodeIds.length-2);
+      const a = nodeById[nodeIds[seg]];
+      const b = nodeById[nodeIds[seg+1]];
+      if(!a||!b) return;
+
+      const pt = getEdgePoint(a, b, pkt.progress);
+
+      // trail
+      pkt.trail.push({x:pt.x, y:pt.y, a:1});
+      if(pkt.trail.length>16) pkt.trail.shift();
+      pkt.trail.forEach((tp,ti)=>{
+        const ta = (ti/pkt.trail.length)*0.6;
+        ctx.beginPath();
+        ctx.arc(tp.x, tp.y, 2.5*(ti/pkt.trail.length), 0, Math.PI*2);
+        ctx.fillStyle = pkt.route.color;
+        ctx.globalAlpha = ta;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      });
+
+      // packet dot
+      ctx.beginPath();
+      ctx.arc(pt.x, pt.y, 5, 0, Math.PI*2);
+      ctx.fillStyle = pkt.route.color;
+      ctx.shadowBlur = 14;
+      ctx.shadowColor = pkt.route.color;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // glow source node
+      glowMap[nodeIds[seg]] = 3;
+
+      // advance
+      pkt.progress += pkt.speed;
+      if(pkt.progress >= 1){
+        pkt.progress = 0;
+        pkt.nodeIdx++;
+        if(pkt.nodeIdx >= nodeIds.length-1){
+          pkt.done = true;
+          glowMap[nodeIds[nodeIds.length-1]] = 8;
+        }
+      }
+    });
+
+    // decay glow
+    Object.keys(glowMap).forEach(k=>{ if(glowMap[k]>0) glowMap[k]--; });
+
+    // remove done
+    packets = packets.filter(p=>!p.done);
+
+    // column labels
+    const cols = [
+      {x:0.08, label:'CLIENT'},
+      {x:0.28, label:'MIDDLEWARE'},
+      {x:0.52, label:'ROUTER'},
+      {x:0.74, label:'CONTROLLERS'},
+      {x:0.93, label:'DATABASE'},
+    ];
+    cols.forEach(col=>{
+      ctx.fillStyle = C.dim;
+      ctx.font = `400 9px 'JetBrains Mono', monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(col.label, col.x*W, 8);
+    });
+
+    if(running) requestAnimationFrame(draw);
+  }
+
+  // spawn packets on interval
+  let spawnInterval = setInterval(spawnPacket, 1100);
+  spawnPacket(); // fire one immediately
+
+  // start after loader
+  setTimeout(()=>{ draw(); }, 1800);
+
+  // controls
+  window.vizToggle = function(){
+    running = !running;
+    const btn = document.getElementById('btnPlay');
+    if(running){
+      btn.textContent='⏸ Pause';
+      btn.classList.add('active');
+      spawnInterval = setInterval(spawnPacket, 1100);
+      draw();
+    } else {
+      btn.textContent='▶ Play';
+      btn.classList.remove('active');
+      clearInterval(spawnInterval);
+    }
+  };
+  window.vizReset = function(){
+    packets=[];totalReq=0;totalOk=0;totalFail=0;latencies=[];
+    document.getElementById('statReq').textContent='0';
+    document.getElementById('statOk').textContent='0';
+    document.getElementById('statFail').textContent='0';
+    document.getElementById('statMs').textContent='0ms';
+    const log=document.getElementById('vizLog');
+    if(log) log.innerHTML='';
+    Object.keys(glowMap).forEach(k=>delete glowMap[k]);
+  };
+
+})();
+
+
+// ══════════════════════════════════════
+// HERO TERMINAL — live coding session
+// ══════════════════════════════════════
+(function(){
+  const pre = document.getElementById('htPre');
+  const cur = document.getElementById('htCursor');
+  if(!pre) return;
+
+  const segments = [
+    { type:'cmd',  text:'node server.js\n' },
+    { type:'ok',   text:'[SERVER] Express app initialized\n' },
+    { type:'ok',   text:'[DB] MySQL connected → Aiven cloud\n' },
+    { type:'ok',   text:'[AUTH] JWT secret loaded\n' },
+    { type:'ok',   text:'[SERVER] Listening on port 3000 ✓\n\n' },
+    { type:'req',  text:'→ POST /auth/login\n' },
+    { type:'code', text:'  bcrypt.compare(password, hash)\n' },
+    { type:'code', text:'  jwt.sign({id, role}, SECRET)\n' },
+    { type:'res',  text:'← 200  { token: "eyJhbGci..." }\n\n' },
+    { type:'req',  text:'→ GET  /admin/users\n' },
+    { type:'code', text:'  verifyToken(req, res, next)\n' },
+    { type:'code', text:'  requireRole("admin")\n' },
+    { type:'code', text:'  db.query("SELECT * FROM users")\n' },
+    { type:'res',  text:'← 200  { users: [Array(12)] }\n\n' },
+    { type:'req',  text:'→ GET  /users/data  [no token]\n' },
+    { type:'code', text:'  verifyToken → token missing\n' },
+    { type:'err',  text:'← 401  { error: "Unauthorized" }\n\n' },
+    { type:'req',  text:'→ POST /auth/signup\n' },
+    { type:'code', text:'  bcrypt.hash(password, 10)\n' },
+    { type:'code', text:'  INSERT INTO users (name,email,role)\n' },
+    { type:'res',  text:'← 201  { message: "User created" }\n\n' },
+    { type:'req',  text:'→ DELETE /admin/user/42\n' },
+    { type:'code', text:'  verifyToken ✓\n' },
+    { type:'code', text:'  requireRole("admin") → user.role: "user"\n' },
+    { type:'err',  text:'← 403  { error: "Forbidden" }\n\n' },
+  ];
+
+  const colors = {
+    cmd:  '#e6edf3',
+    ok:   '#3fb950',
+    req:  '#79c0ff',
+    code: '#d2a8ff',
+    res:  '#a5d6ff',
+    err:  '#f85149',
+  };
+
+  const MAX_LINES = 20;
+  let lines = [];
+  let segIdx = 0;
+  let charIdx = 0;
+
+  function colorize(type, text){
+    const col = colors[type] || '#e6edf3';
+    return `<span style="color:${col}">${text}</span>`;
+  }
+
+  function tick(){
+    if(segIdx >= segments.length){ segIdx=0; lines=[]; pre.innerHTML=''; }
+    const seg = segments[segIdx];
+    const ch = seg.text[charIdx];
+    const isNewline = ch === '\n';
+
+    if(lines.length === 0) lines.push({type:seg.type, text:''});
+    const cur_line = lines[lines.length-1];
+
+    if(isNewline){
+      lines.push({type:seg.type, text:''});
+    } else {
+      cur_line.text += ch;
+    }
+
+    // trim to MAX_LINES
+    while(lines.length > MAX_LINES) lines.shift();
+
+    // render
+    pre.innerHTML = lines.map(l => colorize(l.type, escHtml(l.text))).join('\n');
+
+    charIdx++;
+    if(charIdx >= seg.text.length){
+      charIdx = 0;
+      segIdx++;
+    }
+
+    const delay = isNewline ? 60 : (seg.type==='cmd' ? 80 : 18);
+    setTimeout(tick, delay);
+  }
+
+  function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  setTimeout(tick, 500);
+})();
+
+// ══════════════════════════════════════
+// PROJECT CARD MINI CANVASES
+// ══════════════════════════════════════
+(function(){
+
+  function initCanvas(id, drawFn){
+    const cv = document.getElementById(id);
+    if(!cv) return;
+    function resize(){ cv.width=Math.max(cv.offsetWidth,200); cv.height=Math.max(cv.offsetHeight,150); }
+    resize();
+    window.addEventListener('resize', resize);
+    // Draw immediately and also on scroll into view
+    setTimeout(()=>drawFn(cv), 200);
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ resize(); } });
+    },{threshold:0.1});
+    obs.observe(cv);
+  }
+
+  // ── Card 1: Auth API — animated JWT pipeline
+  initCanvas('prev1', function(cv){
+    const ctx = cv.getContext('2d');
+    const W=cv.width, H=cv.height;
+    const nodes = [
+      {label:'CLIENT',  x:0.12, color:'#79c0ff'},
+      {label:'CORS',    x:0.28, color:'#6e7681'},
+      {label:'JWT',     x:0.46, color:'#a855f7'},
+      {label:'RBAC',    x:0.64, color:'#ff7b72'},
+      {label:'MySQL',   x:0.82, color:'#e3b341'},
+    ];
+    let packets=[], t=0;
+    function spawnPkt(){
+      const ok = Math.random()>0.3;
+      const maxNode = ok ? nodes.length-1 : 1+Math.floor(Math.random()*2);
+      packets.push({x:nodes[0].x*W, target:1, maxNode, ok, speed:1.8+Math.random(), alpha:1, done:false});
+    }
+    setInterval(spawnPkt, 900); spawnPkt();
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      // bg
+      ctx.fillStyle='#0a0a0f'; ctx.fillRect(0,0,W,H);
+      // label
+      ctx.font="bold 9px 'JetBrains Mono',monospace";
+      ctx.textAlign='center'; ctx.textBaseline='top';
+      // connections
+      ctx.strokeStyle='#1a1a2e'; ctx.lineWidth=1;
+      nodes.forEach((n,i)=>{ if(i<nodes.length-1){ ctx.beginPath(); ctx.moveTo(n.x*W,H/2); ctx.lineTo(nodes[i+1].x*W,H/2); ctx.stroke(); }});
+      // nodes
+      nodes.forEach((n,i)=>{
+        ctx.beginPath(); ctx.arc(n.x*W,H/2,10,0,Math.PI*2);
+        ctx.fillStyle='#0d1117'; ctx.fill();
+        ctx.strokeStyle=n.color; ctx.lineWidth=1.5; ctx.stroke();
+        ctx.fillStyle=n.color; ctx.fillText(n.label,n.x*W,H/2+16);
+      });
+      // packets
+      packets.forEach(p=>{
+        if(p.done) return;
+        const targetNode = nodes[p.target];
+        const tx = targetNode.x*W;
+        const dx = tx - p.x;
+        p.x += dx*0.12;
+        if(Math.abs(dx)<3){
+          if(p.target>=p.maxNode){ p.done=true; return; }
+          p.target++;
+        }
+        const col = p.ok ? '#3fb950' : '#f85149';
+        ctx.beginPath(); ctx.arc(p.x,H/2,4,0,Math.PI*2);
+        ctx.fillStyle=col; ctx.shadowBlur=10; ctx.shadowColor=col; ctx.fill();
+        ctx.shadowBlur=0;
+      });
+      packets = packets.filter(p=>!p.done);
+      requestAnimationFrame(draw);
+    }
+    draw();
+  });
+
+  // ── Card 2: Sentiment — live text + probability bars
+  initCanvas('prev2', function(cv){
+    const ctx = cv.getContext('2d');
+    const W=cv.width, H=cv.height;
+    const samples = [
+      {text:'"Great product, love it!"',     pos:0.92, neg:0.05, neu:0.03},
+      {text:'"Terrible experience, awful"',  pos:0.04, neg:0.91, neu:0.05},
+      {text:'"It was okay, nothing special"',pos:0.18, neg:0.22, neu:0.60},
+      {text:'"Absolutely fantastic work!"',  pos:0.95, neg:0.02, neu:0.03},
+      {text:'"Not what I expected at all"',  pos:0.08, neg:0.78, neu:0.14},
+    ];
+    let si=0, animPct=0, displaying=samples[0];
+    setInterval(()=>{ si=(si+1)%samples.length; displaying=samples[si]; animPct=0; },2600);
+    const bars=[
+      {label:'POSITIVE', key:'pos', color:'#3fb950'},
+      {label:'NEGATIVE', key:'neg', color:'#f85149'},
+      {label:'NEUTRAL',  key:'neu', color:'#e3b341'},
+    ];
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle='#0a0a0f'; ctx.fillRect(0,0,W,H);
+      // sample text
+      ctx.font="10px 'JetBrains Mono',monospace";
+      ctx.fillStyle='#6e7681'; ctx.textAlign='left'; ctx.textBaseline='top';
+      ctx.fillText('INPUT:', 12, 10);
+      ctx.fillStyle='#a5d6ff';
+      ctx.fillText(displaying.text, 12, 24);
+      // bars
+      animPct = Math.min(animPct+0.04, 1);
+      bars.forEach((b,i)=>{
+        const bx=12, by=52+i*26, bh=14;
+        const maxW=W-100;
+        const target = displaying[b.key]*maxW;
+        const cur = target*animPct;
+        ctx.fillStyle='#161b22'; ctx.fillRect(bx,by,maxW,bh);
+        ctx.fillStyle=b.color; ctx.fillRect(bx,by,cur,bh);
+        ctx.font="9px 'JetBrains Mono',monospace"; ctx.fillStyle=b.color;
+        ctx.textAlign='left'; ctx.textBaseline='middle';
+        ctx.fillText(b.label, bx+maxW+8, by+bh/2);
+        ctx.fillStyle='#e6edf3'; ctx.textAlign='right';
+        ctx.fillText(Math.round(displaying[b.key]*100)+'%', bx+maxW-4, by+bh/2);
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  });
+
+  // ── Card 3: Amazon Clone — animated wireframe
+  initCanvas('prev3', function(cv){
+    const ctx = cv.getContext('2d');
+    const W=cv.width, H=cv.height;
+    let scanY = 0;
+    const blocks = [
+      // navbar
+      {x:0,y:0,w:1,h:0.14,color:'#21262d',label:'NAV — search · cart · login'},
+      // hero banner
+      {x:0,y:0.16,w:1,h:0.22,color:'#161b22',label:'HERO BANNER'},
+      // product grid
+      {x:0,    y:0.42,w:0.24,h:0.28,color:'#0d1117',label:''},
+      {x:0.26, y:0.42,w:0.24,h:0.28,color:'#0d1117',label:''},
+      {x:0.52, y:0.42,w:0.24,h:0.28,color:'#0d1117',label:''},
+      {x:0.78, y:0.42,w:0.22,h:0.28,color:'#0d1117',label:''},
+      // footer
+      {x:0,y:0.74,w:1,h:0.26,color:'#161b22',label:'FOOTER'},
+    ];
+    const productColors=['#79c0ff','#3fb950','#e3b341','#a855f7'];
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle='#0a0a0f'; ctx.fillRect(0,0,W,H);
+      blocks.forEach((b,i)=>{
+        const bx=b.x*W, by=b.y*H, bw=b.w*W, bh=b.h*H;
+        ctx.fillStyle=b.color; ctx.fillRect(bx,by,bw,bh);
+        ctx.strokeStyle='#252538'; ctx.lineWidth=1; ctx.strokeRect(bx+0.5,by+0.5,bw-1,bh-1);
+        if(b.label){
+          ctx.font="9px 'JetBrains Mono',monospace";
+          ctx.fillStyle='#484f58'; ctx.textAlign='center'; ctx.textBaseline='middle';
+          ctx.fillText(b.label, bx+bw/2, by+bh/2);
+        }
+        // product card details
+        if(i>=2&&i<=5){
+          const col=productColors[i-2];
+          ctx.fillStyle=col+'33'; ctx.fillRect(bx+4,by+4,bw-8,(bh*0.55));
+          ctx.fillStyle='#21262d'; ctx.fillRect(bx+4,by+bh*0.62,bw-8,6);
+          ctx.fillStyle='#21262d'; ctx.fillRect(bx+4,by+bh*0.75,(bw-8)*0.6,5);
+          ctx.fillStyle=col; ctx.fillRect(bx+4,by+bh*0.86,(bw-8)*0.5,8);
+        }
+      });
+      // scan line
+      scanY = (scanY + 0.6) % H;
+      const grad = ctx.createLinearGradient(0,scanY-12,0,scanY+12);
+      grad.addColorStop(0,'transparent');
+      grad.addColorStop(0.5,'rgba(168,85,247,0.12)');
+      grad.addColorStop(1,'transparent');
+      ctx.fillStyle=grad; ctx.fillRect(0,scanY-12,W,24);
+      requestAnimationFrame(draw);
+    }
+    draw();
+  });
+
+  // ── Card 4: URL Shortener — live analytics chart
+  initCanvas('prev4', function(cv){
+    const ctx = cv.getContext('2d');
+    const W=cv.width, H=cv.height;
+    const data = Array.from({length:24},(_,i)=>({
+      label: i+'h', clicks: Math.floor(20+Math.random()*80+Math.sin(i*0.5)*30)
+    }));
+    let animPct=0;
+    const urls=['/r/gH3k2 → github.com', '/r/xP91m → docs.google.com', '/r/nQ44t → leetcode.com'];
+    let urlIdx=0;
+    setInterval(()=>{ urlIdx=(urlIdx+1)%urls.length; },1800);
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle='#0a0a0f'; ctx.fillRect(0,0,W,H);
+      animPct = Math.min(animPct+0.025, 1);
+      // live redirect text
+      ctx.font="10px 'JetBrains Mono',monospace";
+      ctx.fillStyle='#3fb950'; ctx.textAlign='left'; ctx.textBaseline='top';
+      ctx.fillText('REDIRECT: '+urls[urlIdx], 10, 8);
+      // bar chart
+      const padL=10, padR=10, padT=28, padB=18;
+      const cW=W-padL-padR, cH=H-padT-padB;
+      const barW=(cW/data.length)*0.7;
+      const maxVal=Math.max(...data.map(d=>d.clicks));
+      data.forEach((d,i)=>{
+        const x=padL+i*(cW/data.length);
+        const bh=(d.clicks/maxVal)*cH*animPct;
+        const y=padT+cH-bh;
+        const alpha = 0.4+0.6*(i/data.length);
+        ctx.fillStyle=`rgba(124,58,237,${alpha})`;
+        ctx.fillRect(x,y,barW,bh);
+        // top glow
+        ctx.fillStyle=`rgba(168,85,247,${alpha*0.8})`;
+        ctx.fillRect(x,y,barW,2);
+      });
+      // x-axis labels
+      ctx.font="8px 'JetBrains Mono',monospace";
+      ctx.fillStyle='#353550'; ctx.textAlign='center'; ctx.textBaseline='top';
+      [0,6,12,18,23].forEach(i=>{
+        const x=padL+i*(cW/data.length)+barW/2;
+        ctx.fillText(i+'h',x,padT+cH+3);
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  });
+
+})();
+
+
+// ══════════════════════════════════════════════════════════
+// 1. MATRIX RAIN — purple/cyan code rain behind hero
+// ══════════════════════════════════════════════════════════
+(function(){
+  const cv = document.getElementById('matrixCanvas');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  let W, H, cols, drops;
+  const CHARS = 'ジュセナパティ01{}()=>const let async await JWT bcrypt MySQL SELECT INSERT WHERE JOIN .map .filter Promise req res next 200 403 401 POST GET DELETE';
+  const charArr = CHARS.split(' ');
+  const COLORS = ['#7c3aed','#a855f7','#06b6d4','#6d28d9'];
+
+  function init(){
+    W = cv.width  = cv.offsetWidth;
+    H = cv.height = cv.offsetHeight;
+    const fontSize = 13;
+    cols = Math.floor(W / fontSize);
+    drops = Array.from({length:cols}, () => ({
+      y: Math.random() * -H,
+      speed: 0.4 + Math.random() * 1.2,
+      color: COLORS[Math.floor(Math.random()*COLORS.length)],
+      chars: [],
+      len: 4 + Math.floor(Math.random()*10),
+    }));
+  }
+  init();
+  window.addEventListener('resize', init);
+
+  const fontSize = 13;
+  function draw(){
+    ctx.fillStyle = 'rgba(5,5,8,0.18)';
+    ctx.fillRect(0,0,W,H);
+    drops.forEach(d => {
+      const ch = charArr[Math.floor(Math.random()*charArr.length)];
+      // head char — bright
+      ctx.font = `500 ${fontSize}px 'JetBrains Mono',monospace`;
+      ctx.fillStyle = '#e8e8f0';
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = d.color;
+      ctx.fillText(ch, d.y % cols * fontSize, (d.y % (H/fontSize)) * fontSize);
+      ctx.shadowBlur = 0;
+      // trail
+      for(let t=1; t<d.len; t++){
+        const alpha = 1 - t/d.len;
+        ctx.fillStyle = d.color.replace(')', `,${alpha})`).replace('rgb','rgba').replace('##','#');
+        ctx.globalAlpha = alpha * 0.6;
+        const trailCh = charArr[Math.floor(Math.random()*charArr.length)];
+        ctx.fillText(trailCh,
+          (d.y % cols) * fontSize,
+          ((d.y % (H/fontSize)) - t) * fontSize
+        );
+        ctx.globalAlpha = 1;
+      }
+      d.y += d.speed;
+      if(d.y * fontSize > H + d.len * fontSize) d.y = Math.random() * -20;
+    });
+    requestAnimationFrame(draw);
+  }
+
+  // Smarter rain using column-based drops
+  function initRain(){
+    W = cv.width  = cv.offsetWidth;
+    H = cv.height = cv.offsetHeight;
+    const fs = 13;
+    const numCols = Math.floor(W/fs);
+    const drops2 = Array(numCols).fill(0).map(()=>({
+      y: Math.random() * (H/fs) * -1,
+      speed: 0.3 + Math.random()*0.8,
+      color: COLORS[Math.floor(Math.random()*COLORS.length)],
+      trail: Math.floor(6+Math.random()*14),
+    }));
+    let rafId;
+    function paint(){
+      ctx.fillStyle = 'rgba(5,5,8,0.25)';
+      ctx.fillRect(0,0,W,H);
+      drops2.forEach((d,ci)=>{
+        const x = ci*fs;
+        const row = Math.floor(d.y);
+        // head
+        ctx.font=`400 ${fs}px 'JetBrains Mono',monospace`;
+        ctx.fillStyle='rgba(232,232,240,0.9)';
+        ctx.shadowColor=d.color; ctx.shadowBlur=6;
+        ctx.fillText(charArr[Math.floor(Math.random()*charArr.length)], x, row*fs);
+        ctx.shadowBlur=0;
+        // trail
+        for(let t=1;t<=d.trail;t++){
+          const a=(1-t/d.trail)*0.5;
+          ctx.globalAlpha=a;
+          ctx.fillStyle=d.color;
+          ctx.fillText(charArr[Math.floor(Math.random()*charArr.length)], x, (row-t)*fs);
+          ctx.globalAlpha=1;
+        }
+        d.y+=d.speed;
+        if(d.y*fs > H+d.trail*fs){
+          d.y=Math.random()*-20;
+          d.color=COLORS[Math.floor(Math.random()*COLORS.length)];
+        }
+      });
+      rafId=requestAnimationFrame(paint);
+    }
+    if(rafId) cancelAnimationFrame(rafId);
+    paint();
+  }
+  window.addEventListener('resize',()=>setTimeout(initRain,100));
+  initRain();
+})();
+
+// ══════════════════════════════════════════════════════════
+// 2. GITHUB-STYLE CONTRIBUTION GRAPH — draws itself
+// ══════════════════════════════════════════════════════════
+(function(){
+  const cv = document.getElementById('contribCanvas');
+  if(!cv) return;
+  function drawContrib(){
+    cv.width = cv.offsetWidth;
+    cv.height = cv.offsetHeight;
+    const ctx = cv.getContext('2d');
+    const W=cv.width, H=cv.height;
+    const weeks=26, days=7;
+    const cellSize=Math.min(Math.floor((W-weeks*1)/(weeks)), Math.floor((H-days*1)/(days)));
+    const gap=1;
+    const totalW=(cellSize+gap)*weeks;
+    const totalH=(cellSize+gap)*days;
+    const ox=(W-totalW)/2, oy=(H-totalH)/2;
+    // generate realistic activity
+    const grid=[];
+    for(let w=0;w<weeks;w++){
+      grid[w]=[];
+      for(let d=0;d<days;d++){
+        const base=Math.random();
+        const spike=Math.random()>0.85?0.7:0;
+        const recent=w>20?0.3:0;
+        grid[w][d]=Math.min(1,base*0.4+spike+recent+Math.random()*0.2);
+      }
+    }
+    // color ramp
+    function cellColor(v){
+      if(v<0.1) return '#161b22';
+      if(v<0.3) return '#0e4429';
+      if(v<0.55) return '#006d32';
+      if(v<0.75) return '#26a641';
+      return '#39d353';
+    }
+    // animate reveal week by week
+    let revealW=0;
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const tick=setInterval(()=>{
+            ctx.clearRect(0,0,W,H);
+            for(let w=0;w<=revealW&&w<weeks;w++){
+              for(let d=0;d<days;d++){
+                const x=ox+w*(cellSize+gap);
+                const y=oy+d*(cellSize+gap);
+                ctx.fillStyle=w<revealW?cellColor(grid[w][d]):'#0e1117';
+                ctx.fillRect(x,y,cellSize,cellSize);
+              }
+            }
+            revealW++;
+            if(revealW>=weeks) clearInterval(tick);
+          },40);
+          obs.unobserve(cv);
+        }
+      });
+    },{threshold:0.5});
+    obs.observe(cv);
+  }
+  window.addEventListener('resize',()=>drawContrib());
+  setTimeout(drawContrib,100);
+})();
+
+// ══════════════════════════════════════════════════════════
+// 3. STAT CARD BARS — animate in on scroll
+// ══════════════════════════════════════════════════════════
+(function(){
+  const bars = document.querySelectorAll('.hsc-bar');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const w = e.target.dataset.w || '70';
+        setTimeout(()=>{ e.target.style.width = w + '%'; }, 400);
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.5});
+  bars.forEach(b=>obs.observe(b));
+})();
+
+
+// ══════════════════════════════════════════════
+// PROJECT FILTER TABS
+// ══════════════════════════════════════════════
+window.filterProj = function(btn){
+  document.querySelectorAll('.pf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const filter = btn.dataset.filter;
+  const cards = document.querySelectorAll('.proj-card');
+  cards.forEach((card, i) => {
+    const cat = card.dataset.cat || 'all';
+    const show = filter === 'all' || cat === filter;
+    if(show){
+      card.classList.remove('hidden');
+      card.style.animation = 'none';
+      requestAnimationFrame(()=>{
+        card.style.animation = '';
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(16px)';
+        setTimeout(()=>{
+          card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          card.style.transitionDelay = (i * 0.08) + 's';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 10);
+      });
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+};
+
+// ══════════════════════════════════════════════
+// EXPAND / COLLAPSE TECH DETAILS
+// ══════════════════════════════════════════════
+window.toggleDetails = function(btn){
+  const details = btn.nextElementSibling;
+  const isOpen = details.classList.contains('open');
+  details.classList.toggle('open');
+  btn.textContent = isOpen ? '▾ View Tech Details' : '▴ Hide Tech Details';
+  btn.style.borderColor = isOpen ? '' : 'var(--accent2)';
+  btn.style.color = isOpen ? '' : 'var(--accent2)';
+};
+
+
 
 </script>
 </body>
