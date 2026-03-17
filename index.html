@@ -401,6 +401,16 @@ footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 60p
 
 .hero-left-col{min-width:0}
 
+
+/* ══ HERO MINI TERMINAL ══ */
+.hero-mini-term{background:#0d1117;border:1px solid #21262d;margin-bottom:32px;animation:fadeUp 0.6s 1.3s both;overflow:hidden}
+.hmt-bar{display:flex;align-items:center;gap:5px;padding:8px 14px;background:#161b22;border-bottom:1px solid #21262d}
+.hmt-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.hmt-file{font-family:var(--mono);font-size:10px;color:#484f58;margin-left:8px;letter-spacing:1px;flex:1}
+.hmt-status{font-family:var(--mono);font-size:9px;color:#3fb950;letter-spacing:1px}
+.hmt-body{padding:12px 16px}
+#miniTerm{font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.65;color:#e6edf3;margin:0;white-space:pre-wrap}
+
 /* ── CANVAS PARTICLES ── */
 #particles-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.5}
 /* ── STAGGER CHILDREN ── */
@@ -514,6 +524,20 @@ footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 60p
       <a href="#projects" class="btn-main ripple-btn">View Projects</a>
       <a href="#contact" class="btn-ghost">Let's Talk</a>
     </div>
+    <!-- LIVE MINI TERMINAL BELOW BUTTONS -->
+    <div class="hero-mini-term">
+      <div class="hmt-bar">
+        <span class="hmt-dot" style="background:#ff5f56"></span>
+        <span class="hmt-dot" style="background:#ffbd2e"></span>
+        <span class="hmt-dot" style="background:#27c93f"></span>
+        <span class="hmt-file">auth-api/server.js</span>
+        <span class="hmt-status">● running</span>
+      </div>
+      <div class="hmt-body">
+        <pre id="miniTerm"></pre>
+      </div>
+    </div>
+
     <div class="hero-socials">
       <a href="https://github.com/subhashree212" target="_blank" rel="noopener" class="social-link" title="GitHub">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
@@ -2176,6 +2200,58 @@ window.toggleDetails = function(btn){
   }
 
   draw();
+})();
+
+
+// ══════════════════════════════════════════════════════════
+// HERO MINI TERMINAL — fast live coding session
+// ══════════════════════════════════════════════════════════
+(function(){
+  const pre = document.getElementById('miniTerm');
+  if(!pre) return;
+
+  const lines = [
+    { text: '[SERVER] Express initialized on :3000', color: '#3fb950', delay: 0 },
+    { text: '[DB]     MySQL → Aiven cloud ✓',        color: '#3fb950', delay: 120 },
+    { text: '[AUTH]   JWT_SECRET loaded ✓',           color: '#3fb950', delay: 240 },
+    { text: '',                                        color: '',        delay: 380 },
+    { text: '→ POST /auth/login          200  42ms',  color: '#79c0ff', delay: 500 },
+    { text: '→ GET  /admin/users         200  18ms',  color: '#79c0ff', delay: 700 },
+    { text: '→ GET  /users/data          401  3ms',   color: '#f85149', delay: 900 },
+    { text: '→ POST /auth/signup         201  67ms',  color: '#3fb950', delay: 1100 },
+    { text: '→ DELETE /admin/user/5      403  4ms',   color: '#f85149', delay: 1300 },
+    { text: '→ GET  /admin/dashboard     200  22ms',  color: '#79c0ff', delay: 1500 },
+  ];
+
+  const MAX = 8;
+  let shown = [];
+
+  lines.forEach(line => {
+    setTimeout(() => {
+      shown.push(line);
+      if(shown.length > MAX) shown.shift();
+      pre.innerHTML = shown.map(l =>
+        `<span style="color:${l.color||'#6e7681'}">${escHtml(l.text)}</span>`
+      ).join('\n');
+    }, line.delay);
+  });
+
+  // Loop
+  setTimeout(() => {
+    shown = [];
+    pre.innerHTML = '';
+    lines.forEach(line => {
+      setTimeout(() => {
+        shown.push(line);
+        if(shown.length > MAX) shown.shift();
+        pre.innerHTML = shown.map(l =>
+          `<span style="color:${l.color||'#6e7681'}">${escHtml(l.text)}</span>`
+        ).join('\n');
+      }, line.delay);
+    });
+  }, 3200);
+
+  function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 })();
 
 </script>
